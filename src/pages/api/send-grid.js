@@ -1,23 +1,26 @@
-const sgMail = require('@sendgrid/mail');
+// import sgMail from "@sendgrid/mail";
+import sendgrid from "@sendgrid/mail";
 
-export default async function (req, res) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sendgrid.setApiKey("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");
 
-  const { email, message } = req.body;
-
+async function send(req, res) {
+  const { email, emailAddress } = req.body;
+console.log(email, emailAddress);
   const content = {
-    to: '[your-email-address]',
+    to: "chandrabhanepsoft@gmail.com",
     from: email,
-    subject: `New Message From - ${email}`,
-    text: message,
-    html: `<p>${message}</p>`,
+    subject: `New Message From - ${emailAddress}`,
+    text: emailAddress,
+    html: `<p>${emailAddress}</p>`,
   };
 
   try {
-    await sgMail.send(content);
-    res.status(200).send('Message sent successfully.');
+    await sendgrid.send(content);
+    res.status(200).send("Message sent successfully.");
   } catch (error) {
-    console.log('ERROR', error);
-    res.status(400).send('Message not sent.');
+    console.log("ERROR", error);
+    res.status(400).send("Message not sent.");
   }
 }
+
+export default send;

@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container, Grid, Button, Input, Heading, Text } from "theme-ui";
 
 import Image from "components/image";
-
 import img1 from "assets/partner-1-1.png";
 import img2 from "assets/partner-1-2.png";
 import img3 from "assets/partner-1-3.png";
@@ -10,6 +9,37 @@ import img3 from "assets/partner-1-3.png";
 import bannerImg from "assets/banner-image-1-1.png";
 
 const Banner = () => {
+  const [inputField, setInputField] = useState({
+    email: "",
+    emailAddress: "",
+  });
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log(inputField);
+
+    try {
+      const res = await fetch("../pages/api/send-grid", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...inputField }),
+      })
+        .then((res) => res.json())
+        .then((res) => console.log(res, "res==="));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const inputChangeHandler = (e) => {
+    const { name, value } = e.target;
+    // setInputField((prev ) => ({...prev, [e.target.name] : e.target.value}))
+    // console.log(name, value);
+    setInputField({ ...inputField, [name]: value });
+  };
+
   return (
     <Box sx={styles.banner} id="banner">
       <Container sx={styles.container}>
@@ -20,17 +50,28 @@ const Banner = () => {
               We help you understand a piece of property before you take any
               action just with an address.
             </Text>
-            <Box as="form" sx={styles.form}>
+            <Box as="form" sx={styles.form} onSubmit={submitHandler}>
               <Box as="label" htmlFor="subscribe" variant="styles.srOnly">
                 subscribe
               </Box>
               <Input
-                name="subscribe"
+                name="email"
+                type="email"
+                id="subscribe"
+                placeholder="Enter the Email"
+                sx={styles.form.input}
+                onChange={inputChangeHandler}
+                value={inputField.email}
+              />
+              <Input
+                type="address"
                 id="subscribe"
                 placeholder="Enter the address"
                 sx={styles.form.input}
+                name="emailAddress"
+                onChange={inputChangeHandler}
+                value={inputField.emailAddress}
               />
-
               <Button type="submit" sx={styles.form.button}>
                 Analyse
               </Button>
@@ -100,23 +141,27 @@ const styles = {
   form: {
     mb: ["30px", null, null, null, null, "60px"],
     display: ["flex"],
+    flexDirection: ["column"],
     input: {
       borderRadius: ["4px"],
       backgroundColor: "#fff",
-      width: ["240px", null, null, null, "315px", null, "375px"],
+      width: ["auto", null, null, null, "315px", null, "375px"],
       height: ["45px", null, null, "55px", null, null, "65px"],
       padding: ["0 15px", null, null, "0 25px"],
       fontSize: [1, null, null, 2],
       border: "none",
       outline: "none",
       boxShadow: "0px 10px 50px rgba(48, 98, 145, 0.08)",
+      mb: ["30px", null, null, null, null, "10px"],
     },
     button: {
       fontSize: [1, null, null, null, 2, "20px"],
       borderRadius: ["4px"],
       padding: ["0 15px"],
-      ml: ["10px"],
-      width: ["auto", null, null, null, "180px"],
+      height: ["45px", null, null, "55px", null, null, "65px"],
+      // ml: ["10px"],
+      // width: ["auto", null, null, null, "180px"],
+      width: ["auto", null, null, null, "315px", null, "375px"],
     },
   },
   image: {

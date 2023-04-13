@@ -26,13 +26,13 @@ export default function Footer() {
             Inc
           </Text>
         </Box>
-        <Box sx={styles.right}>
+        {/* <Box sx={styles.right}>
           <Link path="/" label="Home" />
           <Link path="/" label="Adversite" />
           <Link path="/" label="Supports" />
           <Link path="/" label="Marketing" />
           <Link path="/" label="FAQ" />
-        </Box>
+        </Box> */}
       </Container>
     </footer>
   );

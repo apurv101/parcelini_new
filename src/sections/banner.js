@@ -18,19 +18,13 @@ const Banner = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch("../pages/api/send-grid", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(inputField),
-      })
-        .then((res) => res.json())
-        .then((res) => console.log(res, "res==="));
-    } catch (error) {
-      console.log(error);
-    }
+    const res = await fetch("../pages/api/generateReport", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(inputField),
+    });
   };
 
   const inputChangeHandler = (e) => {
@@ -41,14 +35,13 @@ const Banner = () => {
   };
 
   const autoCompleteHandler = async (e) => {
-    let input = e.target.value;
+    // let input = e.target.value;
     setAutoComplete(e.target.value);
-    const response = await fetch(
-      `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&radius=500&types=address&key=${apiKey}`
-      
-    );
-    const data = await response.json();
-    console.log(data, "23456");
+    // const response = await fetch(
+    //   `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&radius=500&types=address&key=${apiKey}`
+    // );
+    // const data = await response.json();
+    // console.log(data, "23456");
   };
 
   return (

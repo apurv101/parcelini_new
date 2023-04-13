@@ -66,7 +66,7 @@ const Services = () => {
     <Box sx={styles.services} id="services">
       <Container>
         <BlockTitle
-          slogan="Quality features"
+          slogan="We get the data directly from local governments"
           title="Sift through our comprehesive data for any property"
           styles={styles.blockTitle}
         />

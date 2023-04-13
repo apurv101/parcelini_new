@@ -48,9 +48,9 @@ const BoostAgencies = () => {
                   Title Search
                 </Text>
               </Box>
-              <Link path="/" sx={styles.link}>
+              {/* <Link path="/" sx={styles.link}>
                 Learn more <FaAngleRight />
-              </Link>
+              </Link> */}
             </Box>
           </Flex>
           <Flex sx={styles.col}>

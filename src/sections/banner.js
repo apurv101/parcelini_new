@@ -48,23 +48,11 @@ const Banner = () => {
             <Heading as="h3">
               Get Most Comprehensive report of your property
             </Heading>
-            {/* <Text as="p">
-              We help you understand a piece of property before you take any
-              action just with an address.
-            </Text> */}
+
             <Box as="form" sx={styles.form} onSubmit={submitHandler}>
               <Box as="label" htmlFor="subscribe" variant="styles.srOnly">
                 subscribe
               </Box>
-              {/* <Input
-                name="email"
-                type="email"
-                id="subscribe"
-                placeholder="Enter the Email"
-                sx={styles.form.input}
-                onChange={inputChangeHandler}
-                value={inputField.email}
-              /> */}
               <Input
                 type="address"
                 id="subscribe"
@@ -74,9 +62,22 @@ const Banner = () => {
                 onChange={inputChangeHandler}
                 value={inputField.emailAddress}
               />
+              <Input
+                name="email"
+                type="email"
+                id="subscribe"
+                placeholder="Enter your Email"
+                sx={styles.form.input}
+                onChange={inputChangeHandler}
+                value={inputField.email}
+              />
               <Button type="submit" sx={styles.form.button}>
-                Analyse
+                Go &#8594;
               </Button>
+
+              <Text as="p">
+                Get complete report in your inbox within 15 minutes
+              </Text>
             </Box>
             {/* <Box sx={styles.partner}>
               <Text as="span">Sponsored by:</Text>
@@ -91,9 +92,9 @@ const Banner = () => {
               </Box>
             </Box> */}
           </Box>
-          {/* <Box sx={styles.image}>
+          <Box sx={styles.image}>
             <Image src={bannerImg} alt="" />
-          </Box> */}
+          </Box>
         </Grid>
       </Container>
     </Box>
@@ -126,10 +127,10 @@ const styles = {
       mb: ["15px", null, null, null, "20px"],
       width: ["100%"],
       maxWidth: ["100%", null, null, "90%", "100%", "540px"],
-      fontSize: [6, null, null, "36px", null, "55px", 9],
+      fontSize: [6, null, null, "36px", null, "50px", 9],
     },
     p: {
-      fontSize: [1, null, null, 2, null, 3],
+      fontSize: [1, null, null, 1, null, 2],
       lineHeight: ["26px", null, null, null, 2.33],
       color: "text_secondary",
       mb: ["20px", null, null, null, null, "30px"],

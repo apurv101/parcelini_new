@@ -1,4 +1,4 @@
-import React from "react";
+import React,{Fragment} from "react";
 import { ThemeProvider } from "theme-ui";
 import { StickyProvider } from "contexts/app/app.provider";
 import theme from "theme";
@@ -16,9 +16,11 @@ import BoostAgencies from "sections/boost-agencies";
 
 export default function IndexPage() {
   return (
-    <ThemeProvider theme={theme}>
-      <StickyProvider>
-        <Layout>
+    // <ThemeProvider theme={theme}>
+    //   <StickyProvider>
+    //     <Layout>
+    <Fragment>
+
           <SEO title="Parcelini" />
           <Banner />
           <BoostAgencies />
@@ -28,8 +30,9 @@ export default function IndexPage() {
           <CustomerSupport />
           {/* <Feature /> */}
           {/* <CallToAction /> */}
-        </Layout>
-      </StickyProvider>
-    </ThemeProvider>
+    </Fragment>
+    //     </Layout>
+    //   </StickyProvider>
+    // </ThemeProvider>
   );
 }

@@ -11,20 +11,20 @@ import bannerImg from "assets/banner-image-1-1.png";
 const Banner = () => {
   const [inputField, setInputField] = useState({
     email: "",
-    emailAddress: "",
+    // emailAddress: "",
   });
+  const [autoComplete, setAutoComplete] = useState();
+  const apiKey = "AIzaSyDKKpSE1qXqBrNKfclQadDFjMSz3zna3ik";
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(inputField);
-
     try {
       const res = await fetch("../pages/api/send-grid", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...inputField }),
+        body: JSON.stringify(inputField),
       })
         .then((res) => res.json())
         .then((res) => console.log(res, "res==="));
@@ -38,6 +38,17 @@ const Banner = () => {
     // setInputField((prev ) => ({...prev, [e.target.name] : e.target.value}))
     // console.log(name, value);
     setInputField({ ...inputField, [name]: value });
+  };
+
+  const autoCompleteHandler = async (e) => {
+    let input = e.target.value;
+    setAutoComplete(e.target.value);
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&radius=500&types=address&key=${apiKey}`
+      
+    );
+    const data = await response.json();
+    console.log(data, "23456");
   };
 
   return (
@@ -69,8 +80,8 @@ const Banner = () => {
                 placeholder="Enter the address"
                 sx={styles.form.input}
                 name="emailAddress"
-                onChange={inputChangeHandler}
-                value={inputField.emailAddress}
+                onChange={autoCompleteHandler}
+                value={autoComplete}
               />
               <Button type="submit" sx={styles.form.button}>
                 Analyse

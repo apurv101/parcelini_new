@@ -56,16 +56,18 @@ const Banner = () => {
       <Container sx={styles.container}>
         <Grid sx={styles.grid}>
           <Box sx={styles.content}>
-            <Heading as="h3">Complete Analysis of a parcel</Heading>
-            <Text as="p">
+            <Heading as="h3">
+              Get Most Comprehensive report of your property
+            </Heading>
+            {/* <Text as="p">
               We help you understand a piece of property before you take any
               action just with an address.
-            </Text>
+            </Text> */}
             <Box as="form" sx={styles.form} onSubmit={submitHandler}>
               <Box as="label" htmlFor="subscribe" variant="styles.srOnly">
                 subscribe
               </Box>
-              <Input
+              {/* <Input
                 name="email"
                 type="email"
                 id="subscribe"
@@ -73,11 +75,11 @@ const Banner = () => {
                 sx={styles.form.input}
                 onChange={inputChangeHandler}
                 value={inputField.email}
-              />
+              /> */}
               <Input
                 type="address"
                 id="subscribe"
-                placeholder="Enter the address"
+                placeholder="Search an Address"
                 sx={styles.form.input}
                 name="emailAddress"
                 onChange={autoCompleteHandler}
@@ -100,9 +102,9 @@ const Banner = () => {
               </Box>
             </Box> */}
           </Box>
-          <Box sx={styles.image}>
+          {/* <Box sx={styles.image}>
             <Image src={bannerImg} alt="" />
-          </Box>
+          </Box> */}
         </Grid>
       </Container>
     </Box>

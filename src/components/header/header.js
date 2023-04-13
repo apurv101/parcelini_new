@@ -10,6 +10,7 @@ import { DrawerProvider } from "contexts/drawer/drawer.provider";
 import MobileDrawer from "./mobileDrawer";
 import menuItems from "./header.data";
 
+
 export default function Header({ className }) {
   return (
     <DrawerProvider>

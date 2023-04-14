@@ -5,16 +5,14 @@ import Image from "components/image";
 import img1 from "assets/partner-1-1.png";
 import img2 from "assets/partner-1-2.png";
 import img3 from "assets/partner-1-3.png";
+import { usePlacesWidget } from "react-google-autocomplete";
 
 import bannerImg from "assets/banner-image-1-1.png";
 
 const Banner = () => {
   const [inputField, setInputField] = useState({
     email: "",
-    // emailAddress: "",
   });
-  const [autoComplete, setAutoComplete] = useState();
-  const apiKey = "AIzaSyDKKpSE1qXqBrNKfclQadDFjMSz3zna3ik";
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -34,15 +32,12 @@ const Banner = () => {
     setInputField({ ...inputField, [name]: value });
   };
 
-  const autoCompleteHandler = async (e) => {
-    // let input = e.target.value;
-    setAutoComplete(e.target.value);
-    // const response = await fetch(
-    //   `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&radius=500&types=address&key=${apiKey}`
-    // );
-    // const data = await response.json();
-    // console.log(data, "23456");
-  };
+  const { ref, autocompleteRef } = usePlacesWidget({
+    apiKey: "AIzaSyDKKpSE1qXqBrNKfclQadDFjMSz3zna3ik",
+    onPlaceSelected: (place) => {
+      console.log(place);
+    },
+  });
 
   return (
     <Box sx={styles.banner} id="banner">
@@ -57,14 +52,15 @@ const Banner = () => {
               <Box as="label" htmlFor="subscribe" variant="styles.srOnly">
                 subscribe
               </Box>
+
               <Input
                 type="address"
                 id="subscribe"
                 placeholder="Search an Address"
                 sx={styles.form.input}
                 name="emailAddress"
-                onChange={autoCompleteHandler}
-                value={autoComplete}
+                ref={ref}
+                // onChange={autoCompleteHandler}
               />
               <Input
                 name="email"
@@ -72,7 +68,7 @@ const Banner = () => {
                 id="subscribe"
                 placeholder="Enter your Email"
                 sx={styles.form.input}
-                onChange={inputChangeHandler}
+                // onChange={inputChangeHandler}
                 value={inputField.email}
               />
               <Button type="submit" sx={styles.form.button}>

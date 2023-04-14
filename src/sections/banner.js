@@ -1,3 +1,5 @@
+//  npm run build && mv .next/ out/
+
 import React, { useState } from "react";
 import { Box, Container, Grid, Button, Input, Heading, Text } from "theme-ui";
 
@@ -36,6 +38,10 @@ const Banner = () => {
     apiKey: "AIzaSyDKKpSE1qXqBrNKfclQadDFjMSz3zna3ik",
     onPlaceSelected: (place) => {
       console.log(place);
+    },
+    options: {
+      types: ["address"],
+      componentRestrictions: { country: "us" },
     },
   });
 

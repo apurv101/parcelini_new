@@ -9,9 +9,19 @@ import Logo from "components/logo";
 import { DrawerProvider } from "contexts/drawer/drawer.provider";
 import MobileDrawer from "./mobileDrawer";
 import menuItems from "./header.data";
-
+import { useState } from "react";
 
 export default function Header({ className }) {
+  const [activeSublinks, setActiveSublinks] = useState(null);
+
+  const handleLinkHover = (sublinksIndex) => {
+    setActiveSublinks(sublinksIndex);
+  };
+
+  const handleLinkLeave = () => {
+    setActiveSublinks(null);
+  };
+
   return (
     <DrawerProvider>
       <header sx={styles.header} className={className}>
@@ -19,19 +29,31 @@ export default function Header({ className }) {
           <Logo />
 
           <Flex as="nav" sx={styles.nav}>
-            {menuItems.map(({ path, label }, i) => (
-              <ScrollLink
-                activeClass="active"
+            {menuItems.map(({ path, label, sublinks }, i) => (
+              <Box
                 sx={styles.nav.navLink}
-                to={path}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
+                activeClass="active"
                 key={i}
+                onMouseEnter={() => handleLinkHover(i)}
+                onMouseLeave={() => handleLinkLeave()}
               >
-                {label}
-              </ScrollLink>
+                <Link path={path} key={i} label={label} />
+                {sublinks.length > 0 && activeSublinks === i && (
+                  <Box sx={styles.sublinksContainer}>
+                    {sublinks.map((sublink, subindex) => (
+                      <Link
+                        key={subindex}
+                        activeClass="active"
+                        sx={styles.sublink}
+                        path={sublink.path}
+                        label={sublink.label}
+                      >
+                        {sublink.label}
+                      </Link>
+                    ))}
+                  </Box>
+                )}
+              </Box>
             ))}
           </Flex>
 
@@ -110,6 +132,30 @@ const styles = {
       ":last-child": {
         mr: "0",
       },
+      "&:hover, &.active": {
+        color: "primary",
+      },
+    },
+  },
+  sublinksContainer: {
+    display: "flex",
+    flexDirection: "column",
+    flexWrap: "wrap",
+    position: "relative",
+    top: "5px", // add a small margin between the box and the link
+    left: 0,
+    backgroundColor: "#fff",
+    border: "1px solid #e2e2e2",
+    boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.1)",
+    borderRadius: "5px",
+    padding: "10px",
+    zIndex: 999, // ensure the box is above other elements
+    sublink: {
+      display: "block",
+      fontSize: "14px",
+      color: "#333",
+      padding: "5px 0",
+      transition: "500ms",
       "&:hover, &.active": {
         color: "primary",
       },

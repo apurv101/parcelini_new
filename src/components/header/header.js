@@ -122,6 +122,8 @@ const styles = {
       display: "none",
     },
     navLink: {
+      display: "flex",
+      alignItems: "center",
       fontSize: "16px",
       color: "#02073E",
       fontWeight: "400",
@@ -135,14 +137,18 @@ const styles = {
       "&:hover, &.active": {
         color: "primary",
       },
+      position: "relative",
+      "&:hover $sublinksContainer": {
+        display: "block",
+      },
     },
   },
   sublinksContainer: {
     display: "flex",
     flexDirection: "column",
-    flexWrap: "wrap",
-    position: "relative",
-    top: "5px", // add a small margin between the box and the link
+    position: "absolute",
+    top: "20px", // add a small margin between the box and the link
+    width: "200px",
     left: 0,
     backgroundColor: "#fff",
     border: "1px solid #e2e2e2",
@@ -154,10 +160,12 @@ const styles = {
       display: "block",
       fontSize: "14px",
       color: "#333",
-      padding: "5px 0",
       transition: "500ms",
+      pb: "10px",
+      pt: "10px",
       "&:hover, &.active": {
         color: "primary",
+        backgroundColor: "#808080",
       },
     },
   },

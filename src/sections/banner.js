@@ -8,23 +8,42 @@ import img1 from "assets/partner-1-1.png";
 import img2 from "assets/partner-1-2.png";
 import img3 from "assets/partner-1-3.png";
 import { usePlacesWidget } from "react-google-autocomplete";
+import { useRouter } from "next/router";
 
 import bannerImg from "assets/banner-image-1-1.png";
 
 const Banner = () => {
-  const [inputField, setInputField] = useState({
-    email: "",
-  });
+  const [email, setEmail] = useState(null);
+  const [address, setAddress] = useState(null);
+  const router = useRouter();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await fetch("../pages/api/generateReport", {
+    console.log("test");
+    const form = e.target;
+    const inputs = form.elements;
+
+    // Access input values
+    const address = inputs.address.value;
+    const email = inputs.email.value;
+
+    // Do something with the input values
+    console.log(`Hello, ${address} ${email}!`);
+
+    var formdata = new FormData();
+    formdata.append("address", address);
+    formdata.append("email", email);
+
+    var requestOptions = {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(inputField),
-    });
+      body: formdata,
+      redirect: "follow",
+    };
+
+    fetch("https://safe-depths-30174.herokuapp.com/submit", requestOptions)
+      .then((response) => response.text())
+      .then((result) => router.push('/submission/thank-you'))
+      .catch((error) => console.log("error", error));
   };
 
   const inputChangeHandler = (e) => {
@@ -64,9 +83,9 @@ const Banner = () => {
                 id="subscribe"
                 placeholder="Search an Address"
                 sx={styles.form.input}
-                name="emailAddress"
+                name="address"
                 ref={ref}
-                // onChange={autoCompleteHandler}
+                onChange={setAddress}
               />
               <Input
                 name="email"
@@ -74,8 +93,7 @@ const Banner = () => {
                 id="subscribe"
                 placeholder="Enter your Email"
                 sx={styles.form.input}
-                // onChange={inputChangeHandler}
-                value={inputField.email}
+                onChange={setEmail}
               />
               <Button type="submit" sx={styles.form.button}>
                 Go &#8594;
